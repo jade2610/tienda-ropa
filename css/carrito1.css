@@ -1,0 +1,222 @@
+/* =========================================
+   GENERAL - Estética "Berry & Chocolate"
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
+
+body {
+    background-color: #FCF9F2; /* Fondo Crema luminoso */
+    color: #422A26; /* Marrón chocolate profundo */
+    font-family: 'Montserrat', sans-serif; 
+    letter-spacing: 0.5px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    margin: 0;
+    padding: 0;
+}
+
+/* =========================================
+   NAVBAR (Efecto Vidrio)
+   ========================================= */
+.navbar {
+    background-color: rgba(252, 249, 242, 0.9) !important; 
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid #F0D5D7; 
+    box-shadow: 0 4px 20px rgba(178, 58, 72, 0.05); 
+}
+
+.navbar-brand {
+    color: #B23A48 !important; /* Rojo Cereza */
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: #6D4C47 !important;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    position: relative; 
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #B23A48 !important; 
+}
+
+/* =========================================
+   TÍTULOS
+   ========================================= */
+h2.fw-bold {
+    color: #422A26;
+    font-weight: 800;
+    position: relative;
+    padding-bottom: 15px;
+    margin: 40px auto 2rem auto;
+    text-align: center;
+    width: fit-content;
+}
+
+h2.fw-bold::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: #B23A48; 
+    border-radius: 2px;
+}
+
+/* =========================================
+   TABLA DEL CARRITO ☑
+   ========================================= */
+.table-responsive {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(178, 58, 72, 0.1) !important;
+    background-color: #FFFFFF;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background-color: #B23A48 !important; 
+    color: #FFFFFF !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none !important;
+    padding: 20px 15px;
+}
+
+.table tbody td {
+    background-color: #FFFFFF !important;
+    color: #422A26 !important;
+    border-bottom: 1px solid #F9E4E5 !important;
+    padding: 15px;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover td {
+    background-color: #FFF8F8 !important; 
+    color: #B23A48 !important;
+    transition: all 0.3s ease;
+}
+
+/* Total en pantalla principal */
+.text-warning {
+    color: #B23A48 !important; 
+    font-size: 1.6rem;
+    font-weight: 900 !important;
+    text-shadow: 0 0 10px rgba(178, 58, 72, 0.05);
+}
+
+/* =========================================
+   BOTONES
+   ========================================= */
+.btn-warning {
+    background-color: #B23A48 !important; 
+    color: #FFFFFF !important; 
+    border-radius: 30px; 
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 30px;
+    border: none !important;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(178, 58, 72, 0.2); 
+}
+
+.btn-warning:hover {
+    background-color: #422A26 !important; 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 15px rgba(66, 42, 38, 0.3);
+}
+
+.btn-danger {
+    background-color: #D48A92 !important; 
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 20px;
+    font-weight: 600;
+    padding: 6px 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #B23A48 !important;
+}
+
+/* =========================================
+   MODAL DE LA BOLETA (Berry & Chocolate) ☑
+   ========================================= */
+.modal-content {
+    background-color: #FCF9F2 !important; 
+    border: 3px solid #B23A48 !important; 
+    border-radius: 25px !important;
+    color: #422A26 !important;
+    box-shadow: 0 20px 50px rgba(178, 58, 72, 0.2) !important;
+}
+
+.modal-header {
+    border-bottom: 2px solid #F0D5D7 !important;
+    padding: 20px 30px;
+}
+
+.modal-title {
+    color: #B23A48 !important;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+#contenidoBoleta hr {
+    border-top: 2px dashed #D48A92 !important;
+    opacity: 0.6;
+    margin: 20px 0;
+}
+
+#contenidoBoleta .table thead th {
+    background-color: transparent !important;
+    color: #6D4C47 !important;
+    border-bottom: 2px solid #B23A48 !important;
+    padding: 10px 0;
+}
+
+#contenidoBoleta .table tbody td {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 10px 0;
+}
+
+.modal-footer {
+    border-top: 1px solid #F0D5D7 !important;
+    padding: 20px;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer {
+    border-top: 5px solid #B23A48; 
+    background: #2C1A17; 
+    color: #FCF9F2 !important; 
+    padding: 40px 20px;
+    margin-top: auto; 
+    width: 100%;
+}
+
+/* IMPRESIÓN */
+@media print {
+    .navbar, footer, .btn, .btn-close, .modal-footer { display: none !important; }
+    .modal-content { border: none !important; box-shadow: none !important; background-color: white !important; }
+}

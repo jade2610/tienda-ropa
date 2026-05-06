@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Aura Fashion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/catalogo.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">Aura Fashion</a>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="catalogo.html">Catálogo</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carrito.html">
+                            Carrito 🛒 (<span id="contador">0</span>)
+                        </a>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 flex-grow-1">
+        <h2 class="text-center mb-4 fw-bold">Nuestro Catálogo</h2>
+        
+        <div class="table-responsive">
+            <table class="table table-hover align-middle shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th class="text-center">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="productos-tabla">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="text-center mt-auto py-3 bg-light">
+        <p class="mb-0">© 2025 Aura Fashion - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        const productos = [
+            {nombre:"Camisa Elegante", precio:80, img:"img/ropa1.jpg"},
+            {nombre:"Vestido Moderno", precio:120, img:"img/ropa2.jpg"},
+            {nombre:"Pantalón Casual", precio:90, img:"img/ropa3.jpg"},
+            {nombre:"Chaqueta Urbana", precio:150, img:"img/ropa4.jpg"},
+            {nombre:"Blusa Chic", precio:70, img:"img/ropa5.jpg"},
+            {nombre:"Falda Trend", precio:85, img:"img/ropa6.jpg"},
+            {nombre:"Polera Oversize", precio:95, img:"img/ropa7.jpg"},
+            {nombre:"Jeans Clásicos", precio:110, img:"img/ropa8.jpg"},
+            {nombre:"Top Fashion", precio:60, img:"img/ropa9.jpg"},
+            {nombre:"Abrigo Premium", precio:200, img:"img/ropa10.jpg"}
+        ];
+
+        let tabla = document.getElementById("productos-tabla");
+
+        // Renderizar productos en la tabla ☑
+        productos.forEach((p, i) => {
+            tabla.innerHTML += `
+            <tr>
+                <td>
+                    <img src="${p.img}" alt="${p.nombre}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;">
+                </td>
+                <td class="fw-bold">${p.nombre}</td>
+                <td class="text-success fw-bold">S/. ${p.precio}</td>
+                <td class="text-center">
+                    <button class="btn btn-warning btn-sm" onclick="agregar(${i})">Agregar 🛒</button>
+                </td>
+            </tr>`;
+        });
+
+        function agregar(i) {
+            let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            carrito.push(productos[i]);
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            actualizarContador();
+            alert(`¡${productos[i].nombre} agregado!`);
+        }
+
+        function actualizarContador() {
+            let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            document.getElementById("contador").innerText = carrito.length;
+        }
+
+        actualizarContador();
+    </script>
+</body>
+</html>

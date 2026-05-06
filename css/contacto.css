@@ -1,0 +1,300 @@
+/* =========================================
+   GENERAL - Estética "Berry & Chocolate"
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
+
+body {
+    background-color: #FCF9F2; /* Fondo Crema luminoso */
+    color: #422A26; /* Marrón chocolate profundo */
+    font-family: 'Montserrat', sans-serif; 
+    letter-spacing: 0.5px;
+    
+    /* MAGIA PARA EL FOOTER: Convertimos el body en una columna flex de altura completa */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    margin: 0;
+}
+
+/* =========================================
+   NAVBAR (Vidrio con tintes rosados)
+   ========================================= */
+.navbar {
+    background-color: rgba(252, 249, 242, 0.9) !important; 
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid #F0D5D7; /* Línea separadora rosado tenue */
+    box-shadow: 0 4px 20px rgba(178, 58, 72, 0.05); 
+}
+
+.navbar-brand {
+    color: #B23A48 !important; /* Rojo Cereza */
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: #6D4C47 !important; /* Marrón medio */
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    position: relative; 
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 2px;
+    left: 50%;
+    background-color: #B23A48; 
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%; 
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #B23A48 !important; 
+}
+
+.navbar-toggler {
+    border-color: #F0D5D7 !important;
+    background-color: #B23A48 !important;
+}
+
+/* =========================================
+   TÍTULOS DE LA PÁGINA (CORREGIDO PARA CENTRAR)
+   ========================================= */
+h2.fw-bold {
+    color: #422A26; /* Chocolate */
+    font-weight: 800;
+    position: relative;
+    display: block; 
+    width: fit-content;
+    margin: 30px auto 1.5rem auto; 
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+h2.fw-bold::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: #B23A48; 
+    border-radius: 2px;
+}
+
+/* =========================================
+   CONTENEDOR PRINCIPAL (Solución del Footer)
+   ========================================= */
+/* Asegura que el contenido del medio crezca y empuje el footer hacia abajo */
+.container.mt-5 {
+    flex-grow: 1;
+    /* ESTA ES LA CORRECCIÓN: Un margen obligatorio para que nunca choque con el footer */
+    margin-bottom: 80px; 
+}
+
+/* =========================================
+   TARJETAS DE PRODUCTOS (El Catálogo)
+   ========================================= */
+.card {
+    background: #FFFFFF; 
+    border: 2px solid #F9E4E5 !important; /* Borde rosado tenue */
+    border-radius: 20px; 
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(178, 58, 72, 0.05) !important; 
+    transition: all 0.4s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px); 
+    border-color: #B23A48 !important; 
+    background: #FFF8F8; 
+    box-shadow: 0 20px 40px rgba(178, 58, 72, 0.15) !important; 
+}
+
+.card-img-top {
+    border-bottom: 2px solid #F9E4E5;
+    transition: transform 0.5s ease;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05); 
+    border-bottom-color: #B23A48;
+}
+
+.card-title {
+    color: #422A26;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+}
+
+.card:hover .card-title {
+    color: #B23A48;
+}
+
+/* =========================================
+   CARRITO DE COMPRAS (Tablas y Total)
+   ========================================= */
+.table-dark {
+    --bs-table-bg: #FFFFFF;
+    --bs-table-color: #422A26;
+}
+
+.table {
+    border-radius: 15px;
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(178, 58, 72, 0.05);
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table thead th {
+    background-color: #B23A48 !important; 
+    color: #FFFFFF !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none !important;
+    padding: 15px;
+}
+
+.table tbody td {
+    background-color: #FFFFFF !important;
+    color: #6D4C47 !important;
+    border-bottom: 1px solid #F9E4E5 !important;
+    padding: 15px;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover td {
+    background-color: #FFF8F8 !important; 
+    color: #B23A48 !important;
+    transition: all 0.3s ease;
+}
+
+.text-success, .text-warning {
+    color: #B23A48 !important; 
+    font-family: 'Courier New', monospace; 
+    font-size: 1.3rem;
+    font-weight: 900 !important;
+}
+
+.text-warning {
+    font-size: 1.6rem;
+    text-shadow: 0 0 10px rgba(178, 58, 72, 0.1);
+}
+
+/* =========================================
+   BOTONES PRINCIPALES
+   ========================================= */
+.btn-warning {
+    background-color: #B23A48 !important; 
+    color: #FFFFFF !important; 
+    border-radius: 30px; 
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px;
+    border: none !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 15px rgba(178, 58, 72, 0.2); 
+    margin-top: 10px;
+}
+
+.btn-warning:hover {
+    background-color: #422A26 !important; 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(66, 42, 38, 0.3); 
+    color: #FFFFFF !important;
+}
+
+.btn-danger {
+    background-color: #D48A92 !important; 
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 20px;
+    font-weight: 600;
+    padding: 6px 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(212, 138, 146, 0.2);
+}
+
+.btn-danger:hover {
+    background-color: #B23A48 !important; 
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(178, 58, 72, 0.3);
+}
+
+/* =========================================
+   PÁGINA DE CONTACTO (MARCO CORREGIDO)
+   ========================================= */
+.card.bg-dark.text-white {
+    background-color: #FFFFFF !important;
+    color: #422A26 !important;
+    border: 3px solid #B23A48 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 15px 40px rgba(178, 58, 72, 0.15) !important;
+}
+
+.form-label {
+    color: #6D4C47;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.form-control {
+    background-color: #FFF8F8 !important; 
+    border: 1px solid #F0D5D7 !important;
+    color: #422A26 !important;
+    border-radius: 12px !important;
+    padding: 15px !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    background-color: #FFFFFF !important;
+    border-color: #B23A48 !important; 
+    box-shadow: 0 0 15px rgba(178, 58, 72, 0.2) !important;
+}
+
+.form-control::placeholder {
+    color: #B59A96;
+    font-weight: 400;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer {
+    border-top: 5px solid #B23A48; 
+    background: #2C1A17; 
+    color: #FCF9F2 !important; 
+    padding: 50px 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    
+    /* Empuja el footer al final de la pantalla */
+    margin-top: auto; 
+    width: 100%;
+}

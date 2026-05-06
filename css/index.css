@@ -1,0 +1,222 @@
+/* =========================================
+   GENERAL - Estética "Berry & Chocolate"
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
+
+body {
+    background-color: #FCF9F2; /* Crema muy luminoso y limpio */
+    color: #422A26; /* Marrón chocolate profundo para excelente lectura */
+    font-family: 'Montserrat', sans-serif; 
+    letter-spacing: 0.5px;
+}
+
+/* =========================================
+   NAVBAR (Vidrio con tintes rosados)
+   ========================================= */
+.navbar {
+    background-color: rgba(252, 249, 242, 0.85) !important; 
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid #F0D5D7; /* Línea separadora rosado tenue */
+    box-shadow: 0 4px 20px rgba(178, 58, 72, 0.05); /* Sombra ligeramente rosada */
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    color: #B23A48 !important; /* El color FUERTE (Cereza/Frambuesa) en el logo */
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: #6D4C47 !important; /* Marrón medio */
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    position: relative; 
+    transition: color 0.3s ease;
+}
+
+/* Subrayado Fuerte al hacer hover */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 2px;
+    left: 50%;
+    background-color: #B23A48; /* Color fuerte */
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: #B23A48 !important; 
+}
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+.hero {
+    height: 100vh;
+    /* Degradado espectacular: De marrón oscuro a un cereza translúcido */
+    background: linear-gradient(rgba(66, 42, 38, 0.6), rgba(178, 58, 72, 0.4)),
+                url('../img/urban-bg.jpg') no-repeat center center/cover;
+    background-attachment: fixed; 
+}
+
+/* =========================================
+   TÍTULOS DE SECCIÓN
+   ========================================= */
+section h2 {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+    color: #422A26; /* Chocolate */
+    font-weight: 800;
+}
+
+/* Línea de acento fuerte */
+section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    background-color: #B23A48; 
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+section:hover h2::after {
+    width: 150px; 
+}
+
+/* =========================================
+   BOTONES (El centro de atención)
+   ========================================= */
+.btn-warning {
+    background-color: #B23A48 !important; /* ROJO CEREZA FUERTE */
+    color: #FFFFFF !important; 
+    border-radius: 30px; 
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 15px 40px;
+    border: none !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 20px rgba(178, 58, 72, 0.3); /* Resplandor del mismo color */
+}
+
+.btn-warning:hover {
+    background-color: #422A26 !important; /* Al pasar el mouse cambia a marrón chocolate! */
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 25px rgba(66, 42, 38, 0.4); 
+}
+
+/* =========================================
+   CARDS (Premium, Rosadas y Elegantes)
+   ========================================= */
+.card {
+    background: #FFFFFF; 
+    border: 2px solid #F9E4E5; /* Borde rosado tenue */
+    border-radius: 20px; 
+    overflow: hidden;
+    /* Sombra base con un toque rosado */
+    box-shadow: 0 10px 30px rgba(178, 58, 72, 0.05); 
+    transition: all 0.4s ease;
+    padding: 20px 10px; 
+}
+
+.card:hover {
+    transform: translateY(-12px); 
+    border-color: #B23A48; /* El borde se enciende con el color fuerte */
+    background: #FFF8F8; /* El fondo se vuelve apenas rosado */
+    box-shadow: 0 20px 40px rgba(178, 58, 72, 0.15); 
+}
+
+/* TEXTOS DENTRO DE LA TARJETA */
+.card-body h5, .card h5 {
+    color: #422A26; 
+    text-transform: uppercase;
+    font-size: 1.3rem; 
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-top: 15px;
+    transition: color 0.3s ease;
+}
+
+.card:hover h5 {
+    color: #B23A48; /* El título resalta al hacer hover */
+}
+
+.card-body p, .card p {
+    color: #8D6E6A; /* Marrón con subtono rosado */
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+/* Emojis/Iconos en la tarjeta del Index */
+.card h2 {
+    font-size: 3.5rem;
+    transition: transform 0.3s ease;
+}
+
+.card:hover h2 {
+    transform: scale(1.1) rotate(5deg); /* Pequeña animación alegre en el emoji */
+}
+
+/* =========================================
+   FORMULARIO Y CONTACTO
+   ========================================= */
+form {
+    background: #FFFFFF !important;
+    border: 2px solid #F9E4E5;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(178, 58, 72, 0.05);
+    padding: 40px;
+}
+
+input, textarea {
+    background: #FFF8F8 !important; /* Fondo rosado súper tenue */
+    border: 1px solid #F0D5D7 !important;
+    color: #422A26 !important;
+    border-radius: 10px !important;
+    padding: 15px !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    background: #FFFFFF !important;
+    border-color: #B23A48 !important; /* Borde cereza al escribir */
+    box-shadow: 0 0 15px rgba(178, 58, 72, 0.2) !important;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #B59A96;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer {
+    border-top: 5px solid #B23A48; 
+    background: #2C1A17; 
+    color: #FCF9F2 !important; 
+    padding: 50px 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
