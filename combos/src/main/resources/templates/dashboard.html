@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | JVXF Boutique</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar shadow-sm sticky-top bg-white">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold"
+           th:href="@{/}">
+
+            JVXF Boutique
+
+        </a>
+
+        <!-- BOTON HAMBURGUESA -->
+        <button class="navbar-toggler border-0 shadow-none"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#menuLateral">
+
+            ☰
+
+        </button>
+
+    </div>
+
+</nav>
+
+<!-- MENU LATERAL -->
+<div class="offcanvas offcanvas-end"
+     tabindex="-1"
+     id="menuLateral">
+
+    <div class="offcanvas-header">
+
+        <h5 class="offcanvas-title">
+
+            JVXF Boutique
+
+        </h5>
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas">
+        </button>
+
+    </div>
+
+    <div class="offcanvas-body">
+
+        <ul class="navbar-nav">
+
+            <!-- INICIO -->
+            <li class="nav-item mb-3">
+
+                <a class="nav-link"
+                   th:href="@{/}">
+
+                    🏠 Inicio
+
+                </a>
+
+            </li>
+
+            <!-- PRODUCTOS -->
+            <li class="nav-item mb-2">
+
+                <span class="fw-bold menu-title">
+
+                    🛍️ Productos
+
+                </span>
+
+            </li>
+
+            <li class="nav-item ms-3 mb-2">
+
+                <a class="nav-link"
+                   th:href="@{/productos}">
+
+                    Ver Catálogo
+
+                </a>
+
+            </li>
+
+            <li class="nav-item ms-3 mb-4">
+
+                <a class="nav-link"
+                   th:href="@{/productos/nuevo}">
+
+                    Registrar Producto
+
+                </a>
+
+            </li>
+
+            <!-- CLIENTES -->
+            <li class="nav-item mb-2">
+
+                <span class="fw-bold menu-title">
+
+                    👥 Clientes
+
+                </span>
+
+            </li>
+
+            <li class="nav-item ms-3 mb-2">
+
+                <a class="nav-link"
+                   th:href="@{/clientes}">
+
+                    Lista Clientes
+
+                </a>
+
+            </li>
+
+            <li class="nav-item ms-3 mb-4">
+
+                <a class="nav-link"
+                   th:href="@{/clientes/nuevo}">
+
+                    Registrar Cliente
+
+                </a>
+
+            </li>
+
+            <!-- CARRITO -->
+            <li class="nav-item mb-3">
+
+                <a class="nav-link"
+                   th:href="@{/carrito}">
+
+                    🛒 Carrito
+
+                </a>
+
+            </li>
+
+            <!-- VENTAS -->
+            <li class="nav-item mb-3">
+
+                <a class="nav-link"
+                   th:href="@{/ventas}">
+
+                    💳 Ventas
+
+                </a>
+
+            </li>
+
+            <!-- DASHBOARD -->
+            <li class="nav-item">
+
+                <a class="nav-link active"
+                   th:href="@{/dashboard}">
+
+                    📊 Dashboard
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+<!-- CONTENIDO -->
+<section class="container py-5">
+
+    <!-- TITULO -->
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold display-5"
+            style="color:#B23A48;">
+
+            Dashboard JVXF Boutique
+
+        </h1>
+
+        <p class="text-muted">
+
+            Panel general del sistema ✨
+
+        </p>
+
+    </div>
+
+    <!-- TARJETAS -->
+    <div class="row g-4">
+
+        <!-- PRODUCTOS -->
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow-lg h-100 rounded-4">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="mb-3">
+
+                        <i class="bi bi-bag-heart-fill"
+                           style="font-size:3rem; color:#B23A48;"></i>
+
+                    </div>
+
+                    <h5 class="fw-bold"
+                        style="color:#422A26;">
+
+                        Productos
+
+                    </h5>
+
+                    <h2 class="fw-bold"
+                        style="color:#B23A48;">
+
+                        <span th:text="${totalProductos}"></span>
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Productos registrados
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CLIENTES -->
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow-lg h-100 rounded-4">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="mb-3">
+
+                        <i class="bi bi-people-fill"
+                           style="font-size:3rem; color:#B23A48;"></i>
+
+                    </div>
+
+                    <h5 class="fw-bold"
+                        style="color:#422A26;">
+
+                        Clientes
+
+                    </h5>
+
+                    <h2 class="fw-bold"
+                        style="color:#B23A48;">
+
+                        <span th:text="${totalClientes}"></span>
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Clientes registrados
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- VENTAS -->
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow-lg h-100 rounded-4">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="mb-3">
+
+                        <i class="bi bi-cash-coin"
+                           style="font-size:3rem; color:#B23A48;"></i>
+
+                    </div>
+
+                    <h5 class="fw-bold"
+                        style="color:#422A26;">
+
+                        Ventas
+
+                    </h5>
+
+                    <h2 class="fw-bold"
+                        style="color:#B23A48;">
+
+                        <span th:text="${totalVentas}"></span>
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Ventas realizadas
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- INGRESOS -->
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow-lg h-100 rounded-4">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="mb-3">
+
+                        <i class="bi bi-graph-up-arrow"
+                           style="font-size:3rem; color:#B23A48;"></i>
+
+                    </div>
+
+                    <h5 class="fw-bold"
+                        style="color:#422A26;">
+
+                        Ingresos
+
+                    </h5>
+
+                    <h2 class="fw-bold"
+                        style="color:#B23A48;">
+
+                        S/ <span th:text="${ingresosTotales}"></span>
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Ganancias totales
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MENSAJE -->
+    <div class="mt-5">
+
+        <div class="card border-0 shadow rounded-4 p-5 text-center"
+             style="background: linear-gradient(135deg, #B23A48, #422A26); color:white;">
+
+            <h2 class="fw-bold mb-3">
+
+                Bienvenida al Panel Administrativo ✨
+
+            </h2>
+
+            <p class="mb-0 fs-5">
+
+                Gestiona productos, clientes, ventas y estadísticas
+                de JVXF Boutique desde un solo lugar.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center text-white py-4 mt-5">
+
+    <p class="mb-0">
+
+        © 2025 JVXF Boutique - Todos los derechos reservados
+
+    </p>
+
+</footer>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

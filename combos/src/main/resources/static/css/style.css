@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
+
+/* --- GENERAL --- */
+body {
+    background-color: #FCF9F2;
+    color: #422A26;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+/* --- NAVBAR --- */
+.navbar {
+    background-color: rgba(252, 249, 242, 0.85) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid #F0D5D7;
+    box-shadow: 0 4px 20px rgba(178, 58, 72, 0.05);
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    color: #B23A48 !important;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+}
+
+.navbar-toggler {
+    font-size: 1.5rem;
+    color: #B23A48 !important;
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+/* --- MENU LATERAL (OFFCANVAS) --- */
+.offcanvas {
+    background-color: #FCF9F2;
+    border-left: 2px solid #F0D5D7;
+}
+
+.offcanvas-title {
+    color: #B23A48;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.menu-title {
+    color: #B23A48;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: #6D4C47 !important;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #B23A48 !important;
+    transform: translateX(5px);
+}
+
+/* --- FORMULARIO Y INPUTS (NUEVO) --- */
+.card-header {
+    background-color: #422A26 !important;
+    border-bottom: 3px solid #B23A48;
+}
+
+.form-label {
+    color: #422A26;
+    font-size: 0.85rem;
+}
+
+.form-control, .form-select {
+    border: 2px solid #F0D5D7;
+    border-radius: 12px;
+    padding: 12px;
+    background-color: #ffffff;
+    color: #422A26;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #B23A48;
+    box-shadow: 0 0 0 0.25rem rgba(178, 58, 72, 0.1);
+    outline: none;
+}
+
+.input-group-text {
+    background-color: #F9E4E5;
+    border: 2px solid #F0D5D7;
+    border-right: none;
+    color: #B23A48;
+    border-radius: 12px 0 0 12px;
+}
+
+/* Ajuste para inputs con iconos */
+.input-group > .form-control {
+    border-radius: 0 12px 12px 0;
+}
+
+/* --- BOTONES --- */
+.btn-warning {
+    background-color: #B23A48 !important;
+    border: none !important;
+    border-radius: 30px;
+    color: white !important;
+    font-weight: 700;
+    padding: 12px 30px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.btn-warning:hover {
+    background-color: #422A26 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(178, 58, 72, 0.2);
+}
+
+.btn-outline-dark {
+    border: 2px solid #422A26;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-outline-dark:hover {
+    background-color: #422A26;
+    color: #FCF9F2;
+}
+
+/* --- TABLAS (CATÁLOGO) --- */
+.table {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #422A26;
+    color: #FCF9F2;
+}
+
+/* --- HERO --- */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(66, 42, 38, 0.6), rgba(178, 58, 72, 0.4)), 
+                url('../img/urban-bg.jpg') no-repeat center center/cover;
+    background-attachment: fixed;
+}
+
+/* --- FOOTER --- */
+footer {
+    background: #2C1A17;
+    color: #FCF9F2;
+    padding: 40px 20px;
+    border-top: 5px solid #B23A48;
+}

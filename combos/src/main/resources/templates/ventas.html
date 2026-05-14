@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- 1. AGREGADO: h-100 en el html para que el navegador sepa que debe ocupar toda la pantalla ☑ -->
+<html lang="es" xmlns:th="http://www.thymeleaf.org" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas | JVXF Boutique</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<!-- 2. AGREGADO: d-flex flex-column h-100 para que el body se comporte como una columna flexible ☑ -->
+<body class="d-flex flex-column h-100">
+
+    <!-- NAVBAR -->
+    <nav class="navbar shadow-sm sticky-top bg-white">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/}">JVXF Boutique</a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <!-- MENU LATERAL -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="menuLateral">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">JVXF Boutique</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav">
+                <li class="nav-item mb-3"><a class="nav-link" th:href="@{/}">🏠 Inicio</a></li>
+                <li class="nav-item mb-2"><span class="fw-bold menu-title">🛍️ Productos</span></li>
+                <li class="nav-item ms-3 mb-2"><a class="nav-link" th:href="@{/productos}">Ver Catálogo</a></li>
+                <li class="nav-item ms-3 mb-4"><a class="nav-link" th:href="@{/productos/nuevo}">Registrar Producto</a></li>
+                <li class="nav-item mb-2"><span class="fw-bold menu-title">👥 Clientes</span></li>
+                <li class="nav-item ms-3 mb-2"><a class="nav-link" th:href="@{/clientes}">Lista Clientes</a></li>
+                <li class="nav-item ms-3 mb-4"><a class="nav-link" th:href="@{/clientes/nuevo}">Registrar Cliente</a></li>
+                <li class="nav-item mb-3"><a class="nav-link" th:href="@{/carrito}">🛒 Carrito</a></li>
+                <li class="nav-item mb-3"><a class="nav-link active" th:href="@{/ventas}">💳 Ventas</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">📊 Dashboard</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 3. AGREGADO: Etiqueta <main> con flex-shrink-0 para envolver el contenido ☑ -->
+    <main class="flex-shrink-0">
+        <section class="container py-5">
+            <div class="text-center mb-5">
+                <h1 class="fw-bold display-5">Historial de Ventas</h1>
+                <p class="text-muted">Consulta las compras realizadas en JVXF Boutique ✨</p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle shadow">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="venta : ${listaVentas}">
+                            <td th:text="${venta.id}"></td>
+                            <td th:text="${venta.cliente}"></td>
+                            <td th:text="${venta.producto}"></td>
+                            <td th:text="${venta.cantidad}"></td>
+                            <td>S/ <span th:text="${venta.total}"></span></td>
+                            <td th:text="${venta.fecha}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- 4. FOOTER CORREGIDO: Se quitó bg-dark para que use tu color marrón y se dejó mt-auto ☑ -->
+    <footer class="text-center text-white py-4 mt-auto">
+        <div class="container">
+            <p class="mb-0">© 2026 JVXF Boutique - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
