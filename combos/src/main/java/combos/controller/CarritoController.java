@@ -1,133 +1,160 @@
 package combos.controller;
 
 import combos.model.Carrito;
+import combos.model.Cliente;
 import combos.model.Producto;
 import combos.model.Venta;
-
-import combos.service.CarritoService;
+import combos.service.ClienteService;
 import combos.service.ProductoService;
 import combos.service.VentaService;
-
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 @RequestMapping("/carrito")
 public class CarritoController {
 
-    @Autowired
-    private CarritoService carritoService;
+    @Autowired private ProductoService productoService;
+    @Autowired private VentaService ventaService;
+    @Autowired private ClienteService clienteService;
 
-    @Autowired
-    private ProductoService productoService;
+    @GetMapping("/ver")
+    public String verCarrito(HttpSession session, Model model) {
+        List<Carrito> miCarrito = (List<Carrito>) session.getAttribute("carrito");
+        if (miCarrito == null) {
+            miCarrito = new ArrayList<>();
+        }
 
-    @Autowired
-    private VentaService ventaService;
+        double total = 0;
+        for (Carrito detalle : miCarrito) {
+            total += detalle.getCantidad() * detalle.getPrecioUnitario();
+        }
 
-    // MOSTRAR CARRITO
-    @GetMapping
-    public String verCarrito(Model model) {
-
-        model.addAttribute("listaCarrito",
-                carritoService.listarCarrito());
-
-        model.addAttribute("total",
-                carritoService.calcularTotal());
-
-        return "carrito";
+        model.addAttribute("detalles", miCarrito);
+        model.addAttribute("total", total);
+        
+        return "cliente/carrito"; 
     }
 
-    // AGREGAR PRODUCTO
-    @GetMapping("/agregar/{id}")
-    public String agregarAlCarrito(@PathVariable int id) {
+    @PostMapping("/agregar/{id}")
+    public String agregarAlCarrito(@PathVariable("id") Long id, @RequestParam(defaultValue = "1") int cantidad, HttpSession session) {
+        Producto producto = productoService.buscarPorId(id);
 
-        Producto producto =
-                productoService.buscarPorId(id);
-
-        if(producto != null){
-
-            List<Carrito> lista =
-                    carritoService.listarCarrito();
+        if (producto != null) {
+            List<Carrito> miCarrito = (List<Carrito>) session.getAttribute("carrito");
+            if (miCarrito == null) {
+                miCarrito = new ArrayList<>();
+            }
 
             boolean existe = false;
-
-            for(Carrito item : lista){
-
-                if(item.getId() == producto.getId()){
-
-                    item.setCantidad(
-                            item.getCantidad() + 1
-                    );
-
-                    item.setSubtotal(
-                            item.getCantidad() *
-                            producto.getPrecio()
-                    );
-
+            for (Carrito detalle : miCarrito) {
+                if (detalle.getProducto().getId().equals(producto.getId())) {
+                    detalle.setCantidad(detalle.getCantidad() + cantidad);
                     existe = true;
                     break;
                 }
             }
 
-            if(!existe){
-
-                Carrito item = new Carrito();
-
-                item.setId(producto.getId());
-                item.setProducto(producto.getNombre());
-                item.setCantidad(1);
-                item.setSubtotal(producto.getPrecio());
-
-                carritoService.agregarCarrito(item);
+            if (!existe) {
+                Carrito detalle = new Carrito();
+                detalle.setProducto(producto);
+                detalle.setPrecioUnitario(producto.getPrecio());
+                detalle.setCantidad(cantidad); 
+                miCarrito.add(detalle);
             }
-        }
 
-        return "redirect:/carrito";
+            session.setAttribute("carrito", miCarrito);
+        }
+        return "redirect:/catalogo"; 
     }
 
-    // ELIMINAR PRODUCTO
     @GetMapping("/eliminar/{id}")
-    public String eliminarDelCarrito(@PathVariable int id){
-
-        carritoService.eliminarCarrito(id);
-
-        return "redirect:/carrito";
+    public String eliminarDelCarrito(@PathVariable Long id, HttpSession session) {
+        List<Carrito> miCarrito = (List<Carrito>) session.getAttribute("carrito");
+        
+        if (miCarrito != null) {
+            miCarrito.removeIf(detalle -> detalle.getProducto().getId().equals(id));
+            session.setAttribute("carrito", miCarrito);
+        }
+        return "redirect:/carrito/ver"; 
     }
 
-    // FINALIZAR COMPRA
-    @GetMapping("/finalizar")
-    public String finalizarCompra(){
-
-        List<Carrito> carrito =
-                carritoService.listarCarrito();
-
-        int idVenta =
-                ventaService.listarVentas().size() + 1;
-
-        for(Carrito item : carrito){
-
-            Venta venta = new Venta(
-                    idVenta,
-                    "Cliente General",
-                    item.getProducto(),
-                    item.getCantidad(),
-                    item.getSubtotal(),
-                    LocalDate.now().toString()
-            );
-
-            ventaService.agregarVenta(venta);
-
-            idVenta++;
+    @GetMapping("/checkout")
+    public String mostrarCheckout(HttpSession session, Model model) {
+        List<Carrito> miCarrito = (List<Carrito>) session.getAttribute("carrito");
+        
+        if (miCarrito == null || miCarrito.isEmpty()) {
+            return "redirect:/catalogo";
         }
 
-        carrito.clear();
+        double total = 0;
+        for (Carrito detalle : miCarrito) {
+            total += detalle.getCantidad() * detalle.getPrecioUnitario();
+        }
 
-        return "redirect:/ventas";
+        model.addAttribute("detalles", miCarrito);
+        model.addAttribute("total", total);
+        
+        return "cliente/checkout"; 
     }
 
+    @PostMapping("/procesar")
+    public String procesarCompra(@RequestParam String nombre, @RequestParam String email, 
+                                 @RequestParam(defaultValue = "Tarjeta de Crédito/Débito") String metodoPago, 
+                                 HttpSession session, Model model) {
+        List<Carrito> miCarrito = (List<Carrito>) session.getAttribute("carrito");
+        
+        if (miCarrito == null || miCarrito.isEmpty()) {
+            return "redirect:/catalogo";
+        }
+
+        double total = 0;
+        for (Carrito detalle : miCarrito) {
+            total += detalle.getCantidad() * detalle.getPrecioUnitario();
+        }
+
+        // --- PROCESAMIENTO INTELIGENTE EN BASE DE DATOS ---
+        
+        // A. Buscamos si el cliente ya compró antes en nuestra tienda
+        Cliente clienteActual = clienteService.buscarPorEmail(email);
+        
+        // Si es nulo, significa que es un cliente nuevo y lo registramos
+        if (clienteActual == null) {
+            clienteActual = new Cliente();
+            clienteActual.setNombre(nombre);
+            clienteActual.setEmail(email);
+            clienteActual.setRol("CLIENTE");
+            clienteService.guardar(clienteActual); 
+        }
+
+        // B. Guardamos la Venta asociada a ese cliente (viejo o nuevo)
+        Venta nuevaVenta = new Venta();
+        nuevaVenta.setTotal(total);
+        nuevaVenta.setFecha(LocalDateTime.now()); 
+        nuevaVenta.setCliente(clienteActual); 
+        nuevaVenta.setMetodoPago(metodoPago); 
+        ventaService.registrarVenta(nuevaVenta);
+        // ----------------------------------------------------
+
+        model.addAttribute("nombreCliente", nombre);
+        model.addAttribute("emailCliente", email);
+        model.addAttribute("detalles", miCarrito);
+        model.addAttribute("total", total);
+        model.addAttribute("numeroPedido", nuevaVenta.getId() != null ? nuevaVenta.getId() : (int) (Math.random() * 1000000));
+
+        session.removeAttribute("carrito");
+        
+        return "cliente/voucher"; 
+    }
 }

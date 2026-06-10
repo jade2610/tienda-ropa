@@ -1,80 +1,42 @@
 package combos.model;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "pedidos") // Cabecera del voucher
 public class Venta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private int id;
-    private String cliente;
-    private String producto;
-    private int cantidad;
-    private double total;
-    private String fecha;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false) // Jala el ID del Cliente
+    private Cliente cliente;
 
-    // CONSTRUCTOR VACÍO
-    public Venta() {
-    }
+    @Column(nullable = false)
+    private LocalDateTime fecha;
 
-    // CONSTRUCTOR COMPLETO
-    public Venta(int id,
-                 String cliente,
-                 String producto,
-                 int cantidad,
-                 double total,
-                 String fecha) {
+    @Column(nullable = false)
+    private Double total;
 
-        this.id = id;
-        this.cliente = cliente;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.total = total;
-        this.fecha = fecha;
-    }
+    public Venta() {}
 
-    // GETTERS Y SETTERS
-    public int getId() {
-        return id;
-    }
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Cliente getCliente() { return cliente; }
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
+    public LocalDateTime getFecha() { return fecha; }
+    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
+    public Double getTotal() { return total; }
+    public void setTotal(Double total) { this.total = total; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    // Agrégalo debajo de "private Double total;"
+    @Column(name = "metodo_pago")
+    private String metodoPago;
 
-    public String getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
-    public String getProducto() {
-        return producto;
-    }
-
-    public void setProducto(String producto) {
-        this.producto = producto;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
+    // Y al final del archivo, agrega sus Getters y Setters:
+    public String getMetodoPago() { return metodoPago; }
+    public void setMetodoPago(String metodoPago) { this.metodoPago = metodoPago; }
 }

@@ -1,89 +1,66 @@
 package combos.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "productos")
 public class Producto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private int id;
+    @Column(nullable = false)
     private String nombre;
-    private String categoria;
+    
+    @Column(name = "descripcion") 
+    private String description;
+    
+    @Column(nullable = false)
+    private Double precio;
+
+    @Column(nullable = false)
+    private Integer stock;
+
+    @Column(nullable = false)
     private String talla;
-    private double precio;
-    private int stock;
-    private String imagen;
 
-    // CONSTRUCTOR VACIO
-    public Producto() {
-    }
+    @Column(name = "imagen_url")
+    private String imagenUrl;
 
-    // CONSTRUCTOR
-    public Producto(int id, String nombre, String categoria,
-                    String talla, double precio,
-                    int stock, String imagen) {
+    @Column(nullable = false)
+    private String genero; // Corregido: nombre de variable
 
-        this.id = id;
-        this.nombre = nombre;
-        this.categoria = categoria;
-        this.talla = talla;
-        this.precio = precio;
-        this.stock = stock;
-        this.imagen = imagen;
-    }
+    @Column(nullable = false)
+    private String tipo;
 
-    // GETTERS Y SETTERS
+    public Producto() {}
 
-    public int getId() {
-        return id;
-    }
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+    
+    public Double getPrecio() { return precio; }
+    public void setPrecio(Double precio) { this.precio = precio; }
+    
+    public Integer getStock() { return stock; }
+    public void setStock(Integer stock) { this.stock = stock; }
+    
+    public String getTalla() { return talla; }
+    public void setTalla(String talla) { this.talla = talla; }
+    
+    public String getImagenUrl() { return imagenUrl; }
+    public void setImagenUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    // --- AQUÍ ESTABAN LOS MÉTODOS FALTANTES ---
+    public String getGenero() { return genero; }
+    public void setGenero(String genero) { this.genero = genero; }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public String getTalla() {
-        return talla;
-    }
-
-    public void setTalla(String talla) {
-        this.talla = talla;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
-
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
 }

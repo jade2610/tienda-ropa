@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
 
-/* --- ESTRUCTURA BASE (FOOTER ABAJO) --- */
+/* --- ESTRUCTURA BASE --- */
 html, body {
     height: 100%;
 }
@@ -32,134 +32,134 @@ body {
     font-size: 1.4rem;
 }
 
-/* --- BOTÓN HAMBURGUESA (ESTILO RECUPERADO) ☑ --- */
-.navbar-toggler {
-    font-size: 1.8rem; /* Un poco más grande para que sea fácil de tocar */
-    color: #B23A48 !important;
-    border: none !important; /* Quitamos el borde cuadrado feo de Bootstrap */
-    padding: 0;
-    line-height: 1;
+/* --- PANEL ADMINISTRADOR (SIDEBAR Y CONTENT) --- */
+.sidebar { 
+    width: 260px; height: 100vh; position: fixed; top: 0; left: 0; 
+    background-color: #2C1A17; border-right: 3px solid #B23A48; 
+    padding-top: 20px; z-index: 1000; 
+}
+.main-content { 
+    margin-left: 260px; padding: 40px; width: calc(100% - 260px); 
+    min-height: 100vh;
+}
+.sidebar .nav-link { 
+    color: #FCF9F2 !important; padding: 15px 25px; 
+    border-radius: 0; font-weight: 400; transition: 0.3s;
+}
+.sidebar .nav-link:hover, .sidebar .nav-link.active { 
+    background-color: #B23A48; color: white !important; transform: none;
 }
 
-.navbar-toggler:focus {
-    box-shadow: none; /* Quitamos el resplandor azul al hacer click */
-    outline: none;
-}
-
-/* --- MENU LATERAL (OFFCANVAS) --- */
+/* --- MENU LATERAL (OFFCANVAS - CLIENTE) --- */
+/* APLICAMOS EFECTO LUMINOSO Y PREMIUM */
 .offcanvas {
-    background-color: #FCF9F2;
-    border-left: 2px solid #F0D5D7;
+    width: 350px !important;
+    background-color: rgba(252, 249, 242, 0.95) !important; 
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(178, 58, 72, 0.2);
+    box-shadow: -5px 0 30px rgba(0,0,0,0.08);
 }
-
-.offcanvas-title {
-    color: #B23A48;
-    font-weight: 800;
-    letter-spacing: 2px;
+.offcanvas .nav-link {
+    color: #422A26 !important;
+    font-size: 1.3rem; font-weight: 600;
+    padding: 1.5rem 2rem !important;
+    border-bottom: 1px solid rgba(66, 42, 38, 0.08);
+    transition: all 0.4s ease;
 }
-
-.nav-link {
-    color: #6D4C47 !important;
-    font-weight: 700;
-    transition: all 0.3s ease;
+.offcanvas .nav-link:hover { 
+    background-color: rgba(178, 58, 72, 0.05);
+    color: #B23A48 !important; 
+    padding-left: 30px !important; 
 }
-
-.nav-link:hover, .nav-link.active {
-    color: #B23A48 !important;
-    transform: translateX(5px);
-}
-
-/* --- FORMULARIOS --- */
-.card-header {
-    background-color: #422A26 !important;
-    border-bottom: 3px solid #B23A48;
-}
-
-.form-control, .form-select {
-    border: 2px solid #F0D5D7;
-    border-radius: 12px;
-    padding: 12px;
-}
+.btn-close { filter: invert(20%); }
 
 /* --- BOTONES --- */
-.btn-warning {
-    background-color: #B23A48 !important;
-    border: none !important;
-    border-radius: 30px;
-    color: white !important;
-    font-weight: 700;
-    padding: 12px 30px;
-    transition: 0.3s;
-}
+.btn-warning { background-color: #B23A48 !important; border: none !important; border-radius: 30px; color: white !important; padding: 12px 30px; transition: 0.3s; }
+.btn-warning:hover { background-color: #422A26 !important; transform: translateY(-3px); }
+.btn-dark { background-color: #422A26 !important; border: none !important; border-radius: 12px; transition: 0.3s; }
 
-.btn-warning:hover {
-    background-color: #422A26 !important;
-    transform: translateY(-3px);
+/* --- FOOTER --- */
+footer {
+    background-color: #2C1A17 !important;
+    color: #FCF9F2 !important;
+    padding: 30px 20px;
+    border-top: 5px solid #B23A48 !important;
+    margin-top: auto; 
+    width: 100%;
 }
+footer p { color: #FCF9F2 !important; margin-bottom: 0; }
+
+/* --- TARJETAS --- */
+.card-img-top { width: 100%; height: 300px; object-fit: cover; background-color: #F0D5D7; }
+.card { border: 1px solid #F0D5D7 !important; border-radius: 15px; background-color: #ffffff; height: 100%; }
+
+/* --- TABLAS Y FORMULARIOS --- */
+.form-control { border: 2px solid #F0D5D7; border-radius: 12px; padding: 12px; }
+.table-light { background-color: #F0D5D7 !important; color: #422A26 !important; }
 
 /* --- HERO --- */
 .hero {
-    min-height: 100vh;
+    min-height: 80vh; 
     background: linear-gradient(rgba(66, 42, 38, 0.6), rgba(178, 58, 72, 0.4)), 
-                url('../img/urban-bg.jpg') no-repeat center center/cover;
+                url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=1200&q=80') center/cover;
     background-attachment: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
 }
 
-/* --- FOOTER (SIEMPRE ABAJO) --- */
-footer {
-    background: #2C1A17;
-    color: #FCF9F2;
-    padding: 40px 20px;
-    border-top: 5px solid #B23A48;
-    margin-top: auto; /* Empuja el footer al fondo sin romper nada ☑ */
-}
-
-/* --- RESPONSIVIDAD TOTAL ☑ --- */
+/* --- RESPONSIVIDAD --- */
 @media (max-width: 768px) {
-    .navbar-brand {
-        font-size: 1.1rem;
-    }
-
-    .hero h1 {
-        font-size: 2.2rem !important;
-    }
-
-    .btn-warning, .btn-outline-dark {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    /* Quitamos el fixed en móviles para que no se mueva raro el fondo */
-    .hero {
-        background-attachment: scroll;
-    }
+    .navbar-brand { font-size: 1.1rem; }
+    .sidebar { width: 100%; height: auto; position: relative; border-bottom: 3px solid #B23A48; }
+    .main-content { margin-left: 0; width: 100%; padding: 15px; }
+    .btn-warning { width: 100%; }
 }
 
-
-
-
-/* --- AJUSTE DE IMÁGENES PAREJAS ☑ --- */
-.card-img-top {
-    width: 100%;
-    height: 300px; /* Ajusta esta altura a tu gusto (250px o 300px es lo ideal) */
-    object-fit: cover; /* Esto hace que la imagen llene el espacio sin estirarse */
-    object-position: center; /* Centra la foto para que no se corte la cara o el producto */
-    background-color: #f8f9fa; /* Color de fondo por si la imagen tarda en cargar */
+/* Animación de elevación en tarjetas */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.1) !important;
+}
+.product-card:hover img {
+    transform: scale(1.05);
+}
+.product-card .opacity-0 {
+    transition: opacity 0.3s;
+}
+.product-card:hover .opacity-0 {
+    opacity: 1 !important;
 }
 
-/* Opcional: Si quieres que las cards tengan siempre la misma altura aunque el texto varíe */
-.card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+.card { border-radius: 12px !important; }
+.form-check-input:checked { background-color: #422A26 !important; border-color: #422A26 !important; }
+.btn-dark { border-radius: 8px !important; }
+/* Esto hace que el resumen de compra se quede fijo mientras haces scroll */
+.sticky-top { transition: all 0.3s; }
+
+
+/* Compactar espacios globales */
+.container { padding-top: 10px !important; padding-bottom: 10px !important; }
+
+/* Tarjetas: Ajustamos el padding interno */
+.card { 
+    border-radius: 12px !important; 
+    padding: 1.5rem !important; /* Ajuste preciso del relleno */
+    margin-bottom: 1rem !important; /* Reducimos el espacio entre tarjetas */
 }
 
-.card-body {
-    flex-grow: 1; /* Empuja el botón al final para que queden alineados */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+/* Formulario: Inputs más estilizados y compactos */
+.form-control { 
+    padding: 0.6rem 1rem; 
+    font-size: 0.95rem; 
 }
+
+/* Espaciado del Resumen de Compra */
+.list-group-item { padding: 0.5rem 0 !important; }
+.sticky-top { top: 20px; }
+
+
+/* Fuerza la reducción de espacios */
+.card { margin-bottom: 10px !important; }
+.form-label { margin-bottom: 2px !important; font-size: 0.85rem; }

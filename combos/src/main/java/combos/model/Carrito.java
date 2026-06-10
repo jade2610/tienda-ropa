@@ -1,51 +1,39 @@
 package combos.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "detalles_pedido") // Cuerpo del voucher
 public class Carrito {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private int id;
-    private String producto;
-    private int cantidad;
-    private double subtotal;
+    @ManyToOne
+    @JoinColumn(name = "pedido_id", nullable = false) // Jala la cabecera de la Venta
+    private Venta venta;
 
-    public Carrito() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "producto_id", nullable = false) // Jala el Producto comprado
+    private Producto producto;
 
-    public Carrito(int id, String producto, int cantidad, double subtotal) {
-        this.id = id;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.subtotal = subtotal;
-    }
+    @Column(nullable = false)
+    private Integer cantidad;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "precio_unitario", nullable = false)
+    private Double precioUnitario;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public Carrito() {}
 
-    public String getProducto() {
-        return producto;
-    }
-
-    public void setProducto(String producto) {
-        this.producto = producto;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public double getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
-    }
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Venta getVenta() { return venta; }
+    public void setVenta(Venta venta) { this.venta = venta; }
+    public Producto getProducto() { return producto; }
+    public void setProducto(Producto producto) { this.producto = producto; }
+    public Integer getCantidad() { return cantidad; }
+    public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }
+    public Double getPrecioUnitario() { return precioUnitario; }
+    public void setPrecioUnitario(Double precioUnitario) { this.precioUnitario = precioUnitario; }
 }

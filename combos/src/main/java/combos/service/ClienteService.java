@@ -1,89 +1,35 @@
 package combos.service;
 
 import combos.model.Cliente;
-import jakarta.annotation.PostConstruct;
+import combos.repository.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ClienteService {
+    
+    @Autowired
+    private ClienteRepository clienteRepository;
 
-    private List<Cliente> listaClientes = new ArrayList<>();
-
-    // DATOS DE PRUEBA
-    @PostConstruct
-    public void cargarClientes(){
-
-        listaClientes.add(new Cliente(
-                1,
-                "María López",
-                "maria@gmail.com",
-                "987654321",
-                "Lima"
-        ));
-
-        listaClientes.add(new Cliente(
-                2,
-                "Carlos Pérez",
-                "carlos@gmail.com",
-                "999888777",
-                "Arequipa"
-        ));
-
-    }
-
-    // LISTAR
-    public List<Cliente> listarClientes(){
-
-        return listaClientes;
-    }
-
-    // AGREGAR Y EDITAR
-    public void agregarCliente(Cliente cliente){
-
-        if(cliente.getId() == 0){
-
-            cliente.setId(listaClientes.size() + 1);
-
-            listaClientes.add(cliente);
-
-        } else {
-
-            for(int i = 0; i < listaClientes.size(); i++){
-
-                if(listaClientes.get(i).getId() == cliente.getId()){
-
-                    listaClientes.set(i, cliente);
-
-                    break;
-                }
-            }
-
+    public Cliente login(String email, String password) {
+        Cliente c = clienteRepository.findByEmail(email);
+        if (c != null && c.getPassword().equals(password)) {
+            return c;
         }
-
-    }
-
-    // ELIMINAR
-    public void eliminarCliente(int id){
-
-        listaClientes.removeIf(cliente ->
-                cliente.getId() == id);
-    }
-
-    // BUSCAR POR ID
-    public Cliente buscarCliente(int id){
-
-        for(Cliente c : listaClientes){
-
-            if(c.getId() == id){
-
-                return c;
-            }
-        }
-
         return null;
     }
 
+    public List<Cliente> listarTodos() {
+        return clienteRepository.findAll();
+    }
+
+    public void guardar(Cliente cliente) {
+        clienteRepository.save(cliente);
+    }
+
+    // --- ¡NUEVO! Permite buscar si el cliente ya compró antes ---
+    public Cliente buscarPorEmail(String email) {
+        return clienteRepository.findByEmail(email);
+    }
 }
