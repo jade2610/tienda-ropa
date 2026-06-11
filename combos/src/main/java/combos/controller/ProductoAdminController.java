@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/productos")
@@ -24,7 +25,6 @@ public class ProductoAdminController {
     @GetMapping
     public String listarProductos(HttpSession session, Model model) {
         if (session.getAttribute("usuarioLogueado") == null) return "redirect:/admin/login";
-        
         model.addAttribute("listaProductos", productoService.listarTodos());
         return "admin/productos"; 
     }
@@ -32,7 +32,6 @@ public class ProductoAdminController {
     @GetMapping("/nuevo")
     public String mostrarFormularioCrear(HttpSession session, Model model) {
         if (session.getAttribute("usuarioLogueado") == null) return "redirect:/admin/login";
-        
         model.addAttribute("producto", new Producto());
         return "admin/registrarProducto";
     }
@@ -40,73 +39,48 @@ public class ProductoAdminController {
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, HttpSession session, Model model) {
         if (session.getAttribute("usuarioLogueado") == null) return "redirect:/admin/login";
-        
         model.addAttribute("producto", productoService.buscarPorId(id));
         return "admin/registrarProducto";
     }
 
-    // --- EL MÉTODO ACTUALIZADO ---
     @PostMapping("/guardar")
     public String guardarProducto(@ModelAttribute Producto producto, 
                                   @RequestParam(value = "imagenArchivo", required = false) MultipartFile imagenArchivo,
                                   @RequestParam(value = "imagenUrlTexto", required = false) String imagenUrlTexto,
+                                  @RequestParam(value = "tipoImagen", required = false) String tipoImagen,
                                   HttpSession session) {
         
         if (session.getAttribute("usuarioLogueado") == null) return "redirect:/admin/login";
 
         try {
-            // 1. Buscamos si la prenda ya existía antes en la base de datos
-            Producto productoExistente = null;
-            if (producto.getId() != null) {
-                productoExistente = productoService.buscarPorId(producto.getId());
-            }
-
-            boolean nuevaImagenSubida = false;
-
-            // OPCIÓN A: Subió un archivo NUEVO desde su PC
-            if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
-                Path directorioImagenes = Paths.get("uploads");
-                if (!Files.exists(directorioImagenes)) {
-                    Files.createDirectories(directorioImagenes);
-                }
-                String nombreArchivo = imagenArchivo.getOriginalFilename().replace(" ", "_");
-                Path rutaCompleta = directorioImagenes.resolve(nombreArchivo);
-                Files.copy(imagenArchivo.getInputStream(), rutaCompleta, StandardCopyOption.REPLACE_EXISTING);
+            // Lógica para procesar la imagen (Archivo o URL)
+            if ("btnArchivo".equals(tipoImagen) && imagenArchivo != null && !imagenArchivo.isEmpty()) {
+                Path directorio = Paths.get("uploads"); // Carpeta en la raíz del proyecto
+                if (!Files.exists(directorio)) Files.createDirectories(directorio);
                 
-                producto.setImagenUrl("/uploads/" + nombreArchivo);
-                nuevaImagenSubida = true;
-
-            // OPCIÓN B: Pegó un enlace NUEVO de internet
-            } else if (imagenUrlTexto != null && !imagenUrlTexto.trim().isEmpty()) {
+                String nombreUnico = UUID.randomUUID().toString() + "_" + imagenArchivo.getOriginalFilename().replace(" ", "_");
+                Files.copy(imagenArchivo.getInputStream(), directorio.resolve(nombreUnico), StandardCopyOption.REPLACE_EXISTING);
+                
+                producto.setImagenUrl("/uploads/" + nombreUnico);
+            } 
+            else if ("btnUrl".equals(tipoImagen) && imagenUrlTexto != null && !imagenUrlTexto.isEmpty()) {
                 producto.setImagenUrl(imagenUrlTexto);
-                nuevaImagenSubida = true;
+            }
+            // Si el producto es nuevo y no tiene imagen, ponemos un placeholder
+            else if (producto.getId() == null && (producto.getImagenUrl() == null || producto.getImagenUrl().isEmpty())) {
+                producto.setImagenUrl("https://placehold.co/400x500?text=Sin+Foto");
             }
 
-            // OPCIÓN C: No tocó las imágenes
-            if (!nuevaImagenSubida) {
-                if (productoExistente != null) {
-                    // Si estamos EDITANDO, le devolvemos la imagen que ya tenía guardada
-                    producto.setImagenUrl(productoExistente.getImagenUrl());
-                } else {
-                    // Si estamos CREANDO y no puso foto, ponemos la de por defecto
-                    producto.setImagenUrl("https://placehold.co/400x500?text=Sube+una+Foto");
-                }
-            }
-
-            // Guardamos (Spring Boot actualiza automáticamente si detecta que hay un ID)
             productoService.guardar(producto);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "redirect:/productos"; 
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarProducto(@PathVariable Long id, HttpSession session) {
         if (session.getAttribute("usuarioLogueado") == null) return "redirect:/admin/login";
-        
         productoService.eliminar(id);
         return "redirect:/productos";
     }
